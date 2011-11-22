@@ -28,6 +28,9 @@ class Net::HTTP
     @ssl_context = OpenSSL::SSL::SSLContext.new
     @ssl_context.verify_mode = OpenSSL::SSL::VERIFY_NONE
     @verify_mode = OpenSSL::SSL::VERIFY_NONE
+    store = OpenSSL::X509::Store.new
+    store.set_default_paths
+    @cert_store = store
   end
 end
 
@@ -305,6 +308,9 @@ module Amp
           if secure
             sess.use_ssl = true 
             sess.verify_mode = OpenSSL::SSL::VERIFY_NONE
+            store = OpenSSL::X509::Store.new
+            store.set_default_paths
+            sess.cert_store = store
           end
           # Let's send our request!
           sess.start do |http|
