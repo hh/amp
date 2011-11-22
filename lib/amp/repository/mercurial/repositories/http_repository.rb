@@ -27,6 +27,7 @@ class Net::HTTP
     require 'openssl' unless defined? OpenSSL
     @ssl_context = OpenSSL::SSL::SSLContext.new
     @ssl_context.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    @verify_mode = OpenSSL::SSL::VERIFY_NONE
   end
 end
 
