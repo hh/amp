@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #######################################################################
 #                  Licensing Information                              #
 #                                                                     #
@@ -300,7 +301,10 @@ module Amp
           # enough for us
           sess = Net::HTTP.new host, @url.port
           # Use SSL if necessary
-          sess.use_ssl = true if secure
+          if secure
+            sess.use_ssl = true 
+            sess.verify_mode = OpenSSL::SSL::VERIFY_NONE
+          end
           # Let's send our request!
           sess.start do |http|
             # if we have data, it's a POST
